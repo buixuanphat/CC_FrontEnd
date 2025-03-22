@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_home" android:title="Trang chủ" android:icon="@drawable/home_24px"/>
+    <item android:id="@+id/menu_like" android:title="Yêu thích" android:icon="@drawable/bookmark_star_24px"/>
+    <item android:id="@+id/menu_shared" android:title="Được chia sẻ" android:icon="@drawable/share_24px"/>
+    <item android:id="@+id/menu_profile" android:title="Hồ sơ" android:icon="@drawable/person_24px"/>
+
+
+</menu>
