@@ -29,7 +29,7 @@
                     app:cardCornerRadius="75dp">
 
                     <ImageView
-                        android:id="@+id/iv_avatar"
+                        android:id="@+id/iv_avatar_profile"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/image_default_avatar" />
@@ -44,14 +44,13 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/tv_username"
+                        android:id="@+id/tv_username_profile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Unknow username"
                         android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/tv_subscription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
@@ -132,10 +131,11 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/rLLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_negative_button"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/shape_negative_button"
                 android:gravity="center">
 
 
@@ -149,11 +149,11 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="Đăng xuất"
-                    android:textSize="20sp"
-                    android:textColor="@color/red"
+                    android:layout_toEndOf="@+id/imageView2"
                     android:padding="10dp"
-                    android:layout_toEndOf="@+id/imageView2"/>
+                    android:text="Đăng xuất"
+                    android:textColor="@color/red"
+                    android:textSize="20sp" />
             </RelativeLayout>
 
         </LinearLayout>

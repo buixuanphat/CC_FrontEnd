@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
     ViewPager2 viewPagerMain;
     BottomNavigationView bottomNav;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
         boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
         if(!isLogin) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);

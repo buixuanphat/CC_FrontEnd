@@ -37,7 +37,7 @@
                 android:text="Tên đăng nhập" />
 
             <EditText
-                android:id="@+id/edtUsername"
+                android:id="@+id/edtUsernameLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -60,7 +60,7 @@
                 android:text="Mật khẩu" />
 
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -70,7 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_Login"
+            android:id="@+id/ln_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

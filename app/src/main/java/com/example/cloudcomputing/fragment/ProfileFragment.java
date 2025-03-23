@@ -1,14 +1,35 @@
 package com.example.cloudcomputing.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.cloudcomputing.ApiService;
 import com.example.cloudcomputing.R;
+import com.example.cloudcomputing.Static;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +78,66 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    RelativeLayout rLLogout;
+    SharedPreferences sharedPreferences;
+    TextView tvUsername;
+    ImageView ivAvatar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        rLLogout = view.findViewById(R.id.rLLogout);
+        sharedPreferences = getActivity().getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        tvUsername = view.findViewById(R.id.tv_username_profile);
+        ivAvatar = view.findViewById(R.id.iv_avatar_profile);
+
+//==================================================================================================
+
+        // Xử lý nút đăng xuất
+        rLLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("isLogin", false);
+                editor.putString("accessToken", "");
+                editor.apply();
+                Static.restartApp(requireActivity());
+            }
+        });
+
+        // Lấy thông tin user hiện tại
+        String accessToken = "Bearer ";
+        accessToken += sharedPreferences.getString("accessToken", null);
+        ApiService.apiService.getCurrentUser(accessToken).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String strResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(strResponse);
+                    String username = jsonObject.getString("username");
+                    String avatarUrl = Static.baseUrl;
+                    avatarUrl += jsonObject.getString("avatar");
+                    tvUsername.setText(username);
+                    Glide.with(getContext()).load(avatarUrl).into(ivAvatar);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                Toast.makeText(getContext(), "Không lấy được thông tin người dùng", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+        return view;
     }
 }
